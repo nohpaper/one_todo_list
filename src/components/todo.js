@@ -28,7 +28,7 @@ export default function OneTodo(){
                                     )
                                 });
                             }}/>
-                            <label htmlFor={index} className={`
+                            <label htmlFor="" className={`
                               relative pl-[30px] cursor-pointer ${data.isDone ? "line-through text-gray-400" : "text-black"}
                               before:w-[20px] before:h-[20px] before:absolute before:left-0 before:top-0 before:rounded-md before:border-[1px] before:border-gray-400 ${data.isDone ? "before:bg-gray-400" : "before:bg-white"}
                               after:w-[20px] after:h-[20px] after:absolute after:left-0 after:top-0 after:bg-[url('/public/icon_chk_white.svg')] after:bg-cover
