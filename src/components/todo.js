@@ -3,18 +3,19 @@ import {useState} from "react";
 export default function OneTodo(){
     const [inputContent, setInputContent] = useState("");
     const [data, setData] = useState([]);
+    const dataSend = () => {
+      if(inputContent !== ""){
+        setData((prev)=>[...prev, {content:inputContent, isDone:false, isDelete:false}]);
+        setInputContent("");
+      }
+    }
 
-    /** TODO::
-     *      1. enter 입력 시 input value send
-     *      2. input focus css
-     *      3. delete 기능
-     * */
     return (
-        <div className="wrap w-[300px] h-[60vh] border-8 border-gray-100 rounded-[30px] bg-white shadow-2xl">
+        <div className="wrap w-[300px] h-[60vh] relative border-8 border-gray-100 rounded-[30px] bg-white shadow-2xl max-md:w-[100%] max-md:h-[100svh] max-md:rounded-[0] max-md:border-white">
             <h4 className="pt-[30px] pl-[15px] text-2xl font-bold">TODO LIST</h4>
             <div className="min-h-[calc(60vh-135px)] pt-[20px] box-border">
                 {data.map(function(data, index){
-                    return <div key={index} className="w-[100%] flex justify-between relative px-[10px] mt-[5px] box-border">
+                    return !data.isDelete ? <div key={index} className="w-[100%] flex justify-between relative px-[10px] mt-[5px] box-border">
                         <div>
                             <input type="checkbox" id={index} checked={data.isDone}
                              className="absolute top-0 left-0 opacity-0"
@@ -36,20 +37,25 @@ export default function OneTodo(){
                         <button type="button" className="
                           w-[25px] h-[25px] text-red-600 text-[13px] border-[1px] border-white rounded-md bg-white
                           hover:shadow-md hover:border-gray-100
-                        ">X</button>
-                    </div>
+                        "
+                        onClick={()=>{
+                            setData((prev)=>{
+                                return prev.map((task, idx)=>
+                                  idx === index ? {...task, isDelete: !task.isDelete} : task
+                                )
+                            });
+                        }}
+                        >X</button>
+                    </div> : null
                 })}
             </div>
-            <div className="flex items-center justify-center gap-1 pt-[15px] overflow-hidden">
-                <input type="text" className="w-[225px] h-[25px] rounded-md bg-gray-300" value={inputContent} onChange={(e)=>{
+            <div className="flex items-center justify-center gap-1 pt-[15px] overflow-hidden box-border max-md:w-[100%] max-md:absolute max-md:bottom-0 max-md:py-[15px]">
+                <input type="text" className="w-[225px] h-[25px] pl-[8px] rounded-md box-border bg-gray-300 focus:outline-none max-md:w-[75vw] max-md:h-[35px]" value={inputContent} onChange={(e)=>{
                     setInputContent(e.target.value);
-                }}/>
-                <button type="button" className="w-[25px] h-[25px] text-white rounded-md bg-blue-600" onClick={()=>{
-                    if(inputContent !== ""){
-                        setData((prev)=>[...prev, {content:inputContent, isDone:false, isDelete:false}]);
-                        setInputContent("");
-                    }
-                }}>↑</button>
+                }}
+                 onKeyDown={(e)=>{ e.key === "Enter" && dataSend() }}
+                />
+                <button type="button" className="w-[25px] h-[25px] text-white rounded-md bg-blue-600 max-md:w-[35px] max-md:h-[35px] max-md:text-[18px]" onClick={()=>dataSend()}>↑</button>
             </div>
         </div>
     )
