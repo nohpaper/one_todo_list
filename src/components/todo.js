@@ -16,9 +16,9 @@ export default function OneTodo(){
             <div className="min-h-[calc(60vh-135px)] pt-[20px] box-border">
                 {data.map(function(data, index){
                     return !data.isDelete ? <div key={index} className="w-[100%] flex justify-between relative px-[10px] mt-[5px] box-border">
-                        <div>
+                        <div className="relative">
                             <input type="checkbox" id={index} checked={data.isDone}
-                             className="absolute top-0 left-0 opacity-0"
+                             className="w-[20px] h-[20px] absolute top-0 left-0 opacity-0 z-[2]"
                              onChange={(e)=>{
                                 //데이터 변경
                                 setData((prev)=>{
