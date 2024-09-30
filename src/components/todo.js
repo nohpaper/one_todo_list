@@ -1,14 +1,23 @@
 import {useState} from "react";
+import { NavLink } from "react-router-dom";
+import { sendTitle, indexIsDone, indexIsDelete } from '../store/data.js';
+import {useDispatch, useSelector} from "react-redux";
 
 export default function OneTodo(){
     const [inputContent, setInputContent] = useState("");
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
+    const dispatch = useDispatch();
+    const data = useSelector((state)=> state.data.items );
     const dataSend = () => {
-      if(inputContent !== ""){
-        setData((prev)=>[...prev, {content:inputContent, isDone:false, isDelete:false}]);
-        setInputContent("");
-      }
+        if(inputContent !== ""){
+          //setData((prev)=>[...prev, {title:inputContent, isDone:false, isDelete:false}]);
+          dispatch(sendTitle(inputContent));
+
+          setInputContent("");
+        }
     }
+    
+
 
     return (
         <div className="wrap w-[300px] h-[60vh] relative border-8 border-gray-100 rounded-[30px] bg-white shadow-2xl max-md:w-[100%] max-md:h-[100svh] max-md:rounded-[0] max-md:border-white">
@@ -21,29 +30,32 @@ export default function OneTodo(){
                              className="w-[20px] h-[20px] absolute top-0 left-0 opacity-0 z-[2]"
                              onChange={(e)=>{
                                 //데이터 변경
-                                setData((prev)=>{
+                                dispatch(indexIsDone(index));
+                                
+                                /*setData((prev)=>{
                                     return prev.map((task, idx) =>
                                       //index & idx가 같을 경우 값 변경
                                       idx === index ? {...task, isDone: !task.isDone} : task
                                     )
-                                });
+                                });*/
                             }}/>
-                            <label htmlFor="" className={`
+                            <NavLink to={`/about/${data.id}`} className={`
                               relative pl-[30px] cursor-pointer ${data.isDone ? "line-through text-gray-400" : "text-black"}
                               before:w-[20px] before:h-[20px] before:absolute before:left-0 before:top-0 before:rounded-md before:border-[1px] before:border-gray-400 ${data.isDone ? "before:bg-gray-400" : "before:bg-white"}
                               after:w-[20px] after:h-[20px] after:absolute after:left-0 after:top-0 after:bg-[url('/public/icon_chk_white.svg')] after:bg-cover
-                            `}>{data.content}</label>
+                            `}>{data.title}</NavLink>
                         </div>
                         <button type="button" className="
                           w-[25px] h-[25px] text-red-600 text-[13px] border-[1px] border-white rounded-md bg-white
                           hover:shadow-md hover:border-gray-100
                         "
                         onClick={()=>{
-                            setData((prev)=>{
+                            dispatch(indexIsDelete(index));
+                            /*setData((prev)=>{
                                 return prev.map((task, idx)=>
                                   idx === index ? {...task, isDelete: !task.isDelete} : task
                                 )
-                            });
+                            });*/
                         }}
                         >X</button>
                     </div> : null
