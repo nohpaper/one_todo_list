@@ -44,7 +44,12 @@ let data = createSlice({ //createSlice = useState
       }
     },
     changeAll(state, action){ //about.js 사용 save 버튼 클릭 시 모든 값 변경
-
+      const { index, title, content, isDone } = action.payload;
+      if (state.items[index]) {
+        state.items[index].title = title;
+        state.items[index].content = content;
+        state.items[index].isDone = isDone;
+      }
     },
   }
 });

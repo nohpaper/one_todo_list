@@ -16,8 +16,6 @@ export default function OneTodo(){
           setInputContent("");
         }
     }
-    
-
 
     return (
         <div className="wrap w-[300px] h-[60vh] relative border-8 border-gray-100 rounded-[30px] bg-white shadow-2xl max-md:w-[100%] max-md:h-[100svh] max-md:rounded-[0] max-md:border-white">
