@@ -33,7 +33,7 @@ export default function DetailPage(){
             <label htmlFor="0" className={`
               h-[20px] relative block pl-[30px] cursor-pointer text-[10px] ${currentData.isDone ? "text-gray-400" : "text-white"}
               before:w-[20px] before:h-[100%] before:absolute before:left-0 before:top-0 before:rounded-md before:border-[1px] before:border-gray-400 ${currentData.isDone ? "before:bg-gray-400" : "before:bg-white"}
-              after:w-[20px] after:h-[100%] after:absolute after:left-0 after:top-0 after:bg-[url('/public/icon_chk_white.svg')] after:bg-cover
+              after:w-[20px] after:h-[100%] after:absolute after:left-0 after:top-0 after:bg-[url('/public/icon_chk_color.svg')] after:bg-cover
             `}>완료했어요!</label>
           </div>
           <div className="pt-[30px] px-[15px] text-right">
